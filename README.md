@@ -48,3 +48,39 @@ les risques d'injection XSS.
 
 Ces correctifs réduisent fortement la surface d'attaque et garantissent
 un socle sécurisé pour le reste du projet.
+# Audit des issues HIGH - Codacy
+
+## Analyse des issues HIGH détectées
+
+Codacy a identifié plusieurs vulnérabilités classées « HIGH », principalement dans des fichiers legacy générés automatiquement par Symfony 3 (`config.php`, `app_dev.php`, `app.php`).
+
+### 1. File Access (require/include)
+- Exemples : `require_once`, `include_once` sur des chemins internes.
+- **Risque réel : faible**. Ces chemins ne sont jamais influencés par l'utilisateur.
+- Ces instructions font partie du bootstrap Symfony.
+
+### 2. Fonctions potentiellement sensibles (dirname, header, call_user_func)
+- Ces fonctions sont utilisées dans des scripts système et des fichiers utilitaires.
+- **Risque réel : faible**. Aucune valeur utilisateur ne peut les manipuler.
+
+### 3. Input Validation - accès direct à $_SERVER
+- Exemples : `$_SERVER['REMOTE_ADDR']`, `$_SERVER['HTTP_X_FORWARDED_FOR']`, `$_SERVER['HTTP_CLIENT_IP']`, `$_SERVER['HTTP_HOST']`.
+- **Risque : moyen** si app_dev.php est exposé publiquement.
+- Recommandation : valider et filtrer ces entrées, utiliser `$_SERVER['REMOTE_ADDR'] ?? null`.
+
+### 4. echo / exit / header (comportement imprévisible)
+- Utilisation dans des scripts utilitaires, principalement config.php et app_dev.php.
+- **Risque réel : faible**, mais améliorable.
+- Ces instructions ne sont jamais exécutées dans un contexte de production.
+
+## Recommandations générales
+- Mettre à jour Symfony vers une version supportée (≥ 3.4 ou idéalement 4.x).
+- Sécuriser l'accès à `app_dev.php` via le serveur web (HTACCESS / VHOST).
+- Ajouter validation/sanitization pour toutes les entrées `$_SERVER[...]`.
+- Migrer vers Symfony Flex pour éliminer les fichiers legacy qui déclenchent ces alertes.
+
+---
+
+**Conclusion :**
+La majorité des alertes HIGH sont dues à des fichiers legacy de Symfony 3 et ne constituent pas des failles exploitables dans l’application ToDo & Co. Quelques correctifs simples (validation des superglobales et sécurisation de l’accès dev) permettent de réduire la surface d’attaque et d’améliorer la conformité aux bonnes pratiques de sécurité.
+
