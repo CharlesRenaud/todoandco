@@ -1,21 +1,50 @@
-ToDoList
-========
+# Audit de sécurité Codacy --- Résumé des vulnérabilités
 
-Base du projet #8 : Améliorez un projet existant
+## 1. Vulnérabilités critiques identifiées
 
-https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
+L'audit de sécurité Codacy a identifié plusieurs vulnérabilités
+critiques dans le projet.\
+Celles-ci se répartissent en quatre catégories principales :
 
+### 🔴 1. Dépendances Symfony et SwiftMailer vulnérables
 
+-   Plusieurs CVE affectent les versions utilisées.
+-   Risques : exécution de commande distante (RCE), contournement de
+    sécurité, autres failles critiques.
+-   **Action recommandée** : mettre à jour Symfony vers une version
+    supportée (≥ 3.4 ou idéalement 4.4) et SwiftMailer vers une version
+    corrigée.
 
-L’audit de sécurité Codacy a identifié plusieurs vulnérabilités critiques dans le projet.
-Celles-ci se répartissent en 4 catégories principales :
+### 🔴 2. Sorties non échappées (XSS)
 
-Dépendances Symfony et SwiftMailer vulnérables (plusieurs CVE, RCE potentielle).
+-   Fichiers concernés : `config.php`, `app_dev.php`.
+-   HTML construit directement avec `echo`, sans échappement.
+-   **Risque** : injection JavaScript, vol de session, modifications de
+    page.
+-   **Correction** : utiliser `htmlspecialchars()` ou l'escaping Twig.
 
-Sorties non échappées (XSS) dans config.php et app_dev.php.
+### 🔴 3. Entrées non validées
 
-Entrées non validées, notamment l’utilisation directe de $_SERVER['REMOTE_ADDR'].
+-   Utilisation directe de `$_SERVER['REMOTE_ADDR']` sans validation.
+-   **Risque** : contournement du mode dev, comportement inattendu,
+    failles d'accès.
+-   **Correction** : vérifier l'existence de l'index et filtrer les
+    valeurs.
 
-Manque d’escaping ou sanitization dans plusieurs fichiers.
+### 🔴 4. Manque général de sanitization / escaping
 
-La principale action corrective recommandée est la mise à jour du framework Symfony vers une version supportée (≥ 3.4 ou idéalement 4.4) et la mise à jour de SwiftMailer, accompagnée d’une revue complète des sorties HTML pour éliminer les risques d’injection XSS.
+-   Plusieurs variables affichées sans nettoyage.
+-   **Correction** : systématiser `htmlspecialchars()` ou la validation
+    via FormTypes / Validator Symfony.
+
+------------------------------------------------------------------------
+
+## 2. Recommandation principale
+
+La mesure la plus importante est la **mise à jour du framework Symfony**
+vers une version maintenue (≥ 3.4 ou idéalement 4.4), la mise à jour de
+SwiftMailer, et une **revue complète des sorties HTML** afin d'éliminer
+les risques d'injection XSS.
+
+Ces correctifs réduisent fortement la surface d'attaque et garantissent
+un socle sécurisé pour le reste du projet.
