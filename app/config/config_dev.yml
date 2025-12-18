@@ -16,11 +16,11 @@ monolog:
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
-            channels: [!event]
+            level: error          # plus de debug, juste erreurs
+            channels: [!event, !php]  # ignore les logs PHP (dépréciations)
         console:
-            type:   console
-            channels: [!event, !doctrine]
+            type: console
+            channels: [!event, !doctrine, !php]  # ignore aussi PHP dans la console
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
