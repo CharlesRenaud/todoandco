@@ -15,7 +15,12 @@ class TaskController extends Controller
      */
     public function listAction()
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findAll();
+
+        return $this->render('task/list.html.twig', [
+            'tasks' => $tasks,
+            'user' => $this->getUser() // utilisateur connecté
+        ]);
     }
 
     /**
@@ -25,21 +30,23 @@ class TaskController extends Controller
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task->setAuthor($this->getUser());
 
+            $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
 
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
+            $this->addFlash('success', 'La tâche a bien été ajoutée.');
 
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('task/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -48,10 +55,9 @@ class TaskController extends Controller
     public function editAction(Task $task, Request $request)
     {
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -76,6 +82,44 @@ class TaskController extends Controller
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
         return $this->redirectToRoute('task_list');
+    }
+
+    // Pour activer/désactiver facilement la route, commenter ou décommenter la ligne ci-dessous
+    // @Route("/tasks/assign-anonymous", name="task_assign_anonymous")
+    public function assignAnonymousTasksAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // récupérer ou créer l'utilisateur anonyme
+        $anonymous = $em->getRepository('AppBundle:User')->findOneByUsername('anonyme');
+
+        if (!$anonymous) {
+            $anonymous = new \AppBundle\Entity\User();
+            $anonymous->setUsername('anonyme');
+            $anonymous->setEmail('anonyme@example.com');
+
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($anonymous, 'changeme');
+
+            $anonymous->setPassword($password);
+            $anonymous->setRoles(['ROLE_USER']);
+
+            $em->persist($anonymous);
+            $em->flush();
+        }
+
+        // récupérer uniquement les tâches sans auteur
+        $tasks = $em->getRepository('AppBundle:Task')->findBy(['author' => null]);
+
+        foreach ($tasks as $task) {
+            $task->setAuthor($anonymous);
+        }
+
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\Response(
+            sprintf('%d tâches ont été assignées à l’utilisateur anonyme.', count($tasks))
+        );
     }
 
     /**
