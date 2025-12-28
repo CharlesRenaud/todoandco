@@ -142,7 +142,7 @@ php bin/phpunit.phar --testdox
 - **Formulaires** : 75%
 - **Entités** : 70%
 
-📊 Voir le [Rapport Complet de Couverture](coverage/index.html)
+📊 Voir le [Rapport Complet de Couverture](coverage/index.pdf)
 
 ---
 
@@ -298,8 +298,8 @@ Un guide centralisé pour trouver exactement le document que vous cherchez.
 
 ### Rapports
 
-- **[coverage/index.html](coverage/index.html)** : Rapport de couverture complet
-- **[coverage/tests-details.html](coverage/tests-details.html)** : Détails des tests
+- **[coverage/index.html](coverage/index.pdf)** : Rapport de couverture complet
+- **[coverage/tests-details.html](coverage/tests-details.pdf)** : Détails des tests
 - **[coverage/README.md](coverage/README.md)** : Guide d'accès aux rapports
 
 ---
@@ -392,7 +392,14 @@ Un guide centralisé pour trouver exactement le document que vous cherchez.
 
 ### Guides Internes
 
+<<<<<<< HEAD
 - [Guide d'Authentification](documentations/DOCUMENTATION_AUTHENTIFICATION.md)
 - [Guide de Contribution](documentations/CONTRIBUTION.md)
 - [Guide des Tests](documentations/TESTING_GUIDE.md)
 - [Rapport de Couverture](coverage/index.html)
+=======
+- [Guide d'Authentification](DOCUMENTATION_AUTHENTIFICATION.md)
+- [Guide de Contribution](CONTRIBUTION.md)
+- [Guide des Tests](TESTING_GUIDE.md)
+- [Rapport de Couverture](coverage/index.pdf)
+>>>>>>> aa6d08db2589e05d93d320d9d96091a67bddc12a
