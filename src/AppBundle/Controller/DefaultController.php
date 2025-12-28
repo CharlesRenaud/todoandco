@@ -12,6 +12,11 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('default/index.html.twig');
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findAll();
+
+        return $this->render('task/list.html.twig', [
+            'tasks' => $tasks,
+            'user' => $this->getUser(),
+        ]);
     }
 }

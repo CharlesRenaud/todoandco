@@ -14,6 +14,17 @@
         <!-- Custom CSS -->
         <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
         
+        <style>
+            .alert {
+                margin-top: 20px;
+                animation: fadeOut 0.5s ease-in-out 10s forwards;
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        </style>
+        
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -23,12 +34,15 @@
         <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">To Do List app</a>
+                    <a class="navbar-brand" href="/">To Do List app</a>
                     <img src="{{ asset('img/Logo_OpenClassrooms.png') }}" alt="OpenClassrooms" />
                 </div>
 
                 <div class="navbar-right" style="margin-top: 8px;">
                     {% if app.user %}
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <a href="{{ path('user_list') }}" class="btn btn-info">Gérer les utilisateurs</a>
+                        {% endif %}
                         <a href="{{ path('logout') }}" class="btn btn-danger">Se déconnecter</a>
                     {% else %}
                         {% if 'login' != app.request.attributes.get('_route') %}
@@ -93,5 +107,16 @@
         <!-- jQuery et Bootstrap depuis CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script>
+            (function(){
+                var alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert){
+                    setTimeout(function(){
+                        alert.style.display = 'none';
+                    }, 10000);
+                });
+            })();
+        </script>
     </body>
 </html>

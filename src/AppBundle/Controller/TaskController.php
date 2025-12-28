@@ -54,6 +54,16 @@ class TaskController extends Controller
      */
     public function editAction(Task $task, Request $request)
     {
+        $currentUser = $this->getUser();
+        
+        // Vérifier si l'utilisateur peut éditer cette tâche
+        $isAuthor = $task->getAuthor()->getId() === $currentUser->getId();
+        $isAdmin = in_array('ROLE_ADMIN', $currentUser->getRoles());
+        
+        if (!$isAuthor && !$isAdmin) {
+            throw $this->createAccessDeniedException('Vous ne pouvez éditer que vos propres tâches.');
+        }
+
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
@@ -79,7 +89,11 @@ class TaskController extends Controller
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $message = $task->isDone() 
+            ? sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle())
+            : sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle());
+        
+        $this->addFlash('success', $message);
 
         return $this->redirectToRoute('task_list');
     }

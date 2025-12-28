@@ -13,33 +13,36 @@ NC='\033[0m' # No Color
 
 # Test 1: TaskControllerTest
 echo -e "${BLUE}1. Exécution de TaskControllerTest...${NC}"
-php bin/phpunit.phar tests/AppBundle/Controller/TaskControllerTest.php
-if [ $? -eq 0 ]; then
+OUTPUT=$(php -d error_reporting=8191 bin/phpunit.phar tests/AppBundle/Controller/TaskControllerTest.php 2>&1)
+if echo "$OUTPUT" | grep -q "OK ("; then
     echo -e "${GREEN}✅ TaskControllerTest PASSÉ${NC}"
 else
     echo "❌ TaskControllerTest ÉCHOUÉ"
+    echo "$OUTPUT"
     exit 1
 fi
 echo ""
 
 # Test 2: UserControllerTest
 echo -e "${BLUE}2. Exécution de UserControllerTest...${NC}"
-php bin/phpunit.phar tests/AppBundle/Controller/UserControllerTest.php
-if [ $? -eq 0 ]; then
+OUTPUT=$(php -d error_reporting=8191 bin/phpunit.phar tests/AppBundle/Controller/UserControllerTest.php 2>&1)
+if echo "$OUTPUT" | grep -q "OK ("; then
     echo -e "${GREEN}✅ UserControllerTest PASSÉ${NC}"
 else
     echo "❌ UserControllerTest ÉCHOUÉ"
+    echo "$OUTPUT"
     exit 1
 fi
 echo ""
 
 # Test 3: AuthorizationTest
 echo -e "${BLUE}3. Exécution de AuthorizationTest...${NC}"
-php bin/phpunit.phar tests/AppBundle/Controller/AuthorizationTest.php
-if [ $? -eq 0 ]; then
+OUTPUT=$(php -d error_reporting=8191 bin/phpunit.phar tests/AppBundle/Controller/AuthorizationTest.php 2>&1)
+if echo "$OUTPUT" | grep -q "OK ("; then
     echo -e "${GREEN}✅ AuthorizationTest PASSÉ${NC}"
 else
     echo "❌ AuthorizationTest ÉCHOUÉ"
+    echo "$OUTPUT"
     exit 1
 fi
 echo ""
