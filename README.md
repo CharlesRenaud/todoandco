@@ -392,14 +392,7 @@ Un guide centralisé pour trouver exactement le document que vous cherchez.
 
 ### Guides Internes
 
-<<<<<<< HEAD
 - [Guide d'Authentification](documentations/DOCUMENTATION_AUTHENTIFICATION.md)
 - [Guide de Contribution](documentations/CONTRIBUTION.md)
 - [Guide des Tests](documentations/TESTING_GUIDE.md)
 - [Rapport de Couverture](coverage/index.html)
-=======
-- [Guide d'Authentification](DOCUMENTATION_AUTHENTIFICATION.md)
-- [Guide de Contribution](CONTRIBUTION.md)
-- [Guide des Tests](TESTING_GUIDE.md)
-- [Rapport de Couverture](coverage/index.pdf)
->>>>>>> aa6d08db2589e05d93d320d9d96091a67bddc12a
