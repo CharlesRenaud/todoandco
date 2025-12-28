@@ -184,9 +184,16 @@ projet8-TodoList/
 │   ├── index.html               # Rapport complet
 │   └── tests-details.html       # Détails des tests
 │
-├── DOCUMENTATION_AUTHENTIFICATION.md    # Guide d'authentification
-├── CONTRIBUTION.md              # Guide de contribution
-├── TESTING_GUIDE.md             # Guide des tests
+├── documentations/               # 📚 Documentation
+│   ├── CHANGELOG.md             # Liste des changements
+│   ├── CONTRIBUTION.md          # Guide de contribution
+│   ├── DOCUMENTATION_AUTHENTIFICATION.md  # Guide d'authentification
+│   ├── COMPLETION_REPORT.md     # Rapport final du projet
+│   ├── RAPPORT_COUVERTURE_TESTS.md # Rapport de couverture
+│   ├── RESUME_IMPLEMENTATION.md # Résumé implémentation
+│   ├── TESTING_GUIDE.md         # Guide des tests
+│   └── POINTS_1_2_4_COMPLETES.md # Récapitulatif livrables
+│
 ├── composer.json                # Dépendances
 └── phpunit.xml.dist             # Configuration PHPUnit
 ```
@@ -211,7 +218,7 @@ L'application utilise le **Symfony Security Component** pour gérer l'authentifi
 | **ROLE_USER** | Utilisateur normal | Créer/éditer/supprimer ses tâches |
 | **ROLE_ADMIN** | Administrateur | Tout + gestion des utilisateurs |
 
-👉 **Voir la documentation complète** : [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md)
+👉 **Voir la documentation complète** : [documentations/DOCUMENTATION_AUTHENTIFICATION.md](documentations/DOCUMENTATION_AUTHENTIFICATION.md)
 
 ---
 
@@ -267,21 +274,24 @@ L'application utilise le **Symfony Security Component** pour gérer l'authentifi
 
 ## 📚 Documentation
 
+### 👉 Commencez par [documentations/INDEX.md](documentations/INDEX.md)
+Un guide centralisé pour trouver exactement le document que vous cherchez.
+
 ### Pour les Développeurs
 
-- **[CONTRIBUTION.md](CONTRIBUTION.md)** : Guide de contribution
+- **[documentations/CONTRIBUTION.md](documentations/CONTRIBUTION.md)** : Guide de contribution
   - Setup du projet
   - Workflow Git
   - Normes de code
   - Process de PR et code review
 
-- **[DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md)** : Guide d'authentification
+- **[documentations/DOCUMENTATION_AUTHENTIFICATION.md](documentations/DOCUMENTATION_AUTHENTIFICATION.md)** : Guide d'authentification
   - Architecture détaillée
   - Fichiers clés expliqués
   - Questions/réponses pratiques
   - Checklist pour développeurs juniors
 
-- **[TESTING_GUIDE.md](TESTING_GUIDE.md)** : Guide des tests
+- **[documentations/TESTING_GUIDE.md](documentations/TESTING_GUIDE.md)** : Guide des tests
   - Comment exécuter les tests
   - Détail de chaque test
   - Comment ajouter de nouveaux tests
@@ -382,7 +392,7 @@ L'application utilise le **Symfony Security Component** pour gérer l'authentifi
 
 ### Guides Internes
 
-- [Guide d'Authentification](DOCUMENTATION_AUTHENTIFICATION.md)
-- [Guide de Contribution](CONTRIBUTION.md)
-- [Guide des Tests](TESTING_GUIDE.md)
+- [Guide d'Authentification](documentations/DOCUMENTATION_AUTHENTIFICATION.md)
+- [Guide de Contribution](documentations/CONTRIBUTION.md)
+- [Guide des Tests](documentations/TESTING_GUIDE.md)
 - [Rapport de Couverture](coverage/index.html)

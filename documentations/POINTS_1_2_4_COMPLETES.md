@@ -8,7 +8,7 @@ Je viens de compléter les points **1, 2 et 4** de la checklist des livrables. V
 
 ## 1️⃣ Point 1: Documentation Authentification (Markdown) ✅ FAIT
 
-**Fichier créé**: [DOCUMENTATION_AUTHENTIFICATION.md](../DOCUMENTATION_AUTHENTIFICATION.md)
+**Fichier créé**: [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md)
 
 **Contenu**:
 - ✅ Vue d'ensemble complète de l'authentification
@@ -31,7 +31,7 @@ Je viens de compléter les points **1, 2 et 4** de la checklist des livrables. V
 
 ## 2️⃣ Point 2: Document CONTRIBUTION.md ✅ FAIT
 
-**Fichier créé**: [CONTRIBUTION.md](../CONTRIBUTION.md)
+**Fichier créé**: [CONTRIBUTION.md](CONTRIBUTION.md)
 
 **Contenu**:
 - ✅ Avant de commencer (prérequis)
