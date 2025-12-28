@@ -5,44 +5,116 @@
 {% endblock %}
 
 {% block body %}
-    <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
-    <div class="row">
-        {% for task in tasks %}
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <div class="caption">
-                        <h4 class="pull-right">
-                            {% if task.isDone %}
-                                <span class="glyphicon glyphicon-ok"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-remove"></span>
-                            {% endif %}
-                        </h4>
-                        <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
-                        <p>{{ task.content }}</p>
-                        <p>
-                            <small>
-                                créateur  : {{ task.author ? task.author.username : 'Anonyme' }}
-                            </small>
-                        </p>
-                    </div>
-                    <div>
-                        <form action="{{ path('task_toggle', {'id' : task.id }) }}">
-                            <button class="btn btn-success btn-sm pull-right">
-                                {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
-                            </button>
-                        </form>
-                        <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                            <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
-                        </form>
-                    </div>
-                </div>
+    <div class="task-controls clearfix" style="margin-bottom:15px">
+        <a href="{{ path('task_create') }}" class="btn btn-primary pull-right">Créer une tâche</a>
+        <div style="margin-top:5px">
+            <div class="btn-group" role="group" aria-label="Filtrer tâches">
+                <button id="show-pending" class="btn btn-default active">À faire</button>
+                <button id="show-done" class="btn btn-default">Faites</button>
             </div>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de tâche enregistrée.
-                <a href="{{ path('task_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
-            </div>
-        {% endfor %}
+        </div>
     </div>
+
+    <div class="row tasks-container">
+        <div id="pending-list" class="tasks-list">
+            {% set pending = 0 %}
+            {% for task in tasks %}
+                {% if not task.isDone %}
+                    {% set pending = pending + 1 %}
+                    <div class="col-sm-4 col-lg-4 col-md-4 task-item">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h4 class="pull-right"><span class="glyphicon glyphicon-remove"></span></h4>
+                                <h4>{{ task.title }}</h4>
+                                <p>{{ task.content }}</p>
+                                <p><small>créateur : {{ task.author ? task.author.username : 'Anonyme' }}</small></p>
+                            </div>
+                            <div>
+                                <form action="{{ path('task_toggle', {'id' : task.id }) }}" style="display:inline;">
+                                    <button class="btn btn-success btn-sm pull-right">Marquer comme faite</button>
+                                </form>
+                                {% if app.user and (task.author.id == app.user.id or 'ROLE_ADMIN' in app.user.roles) %}
+                                    <a href="{{ path('task_edit', {'id' : task.id }) }}" class="btn btn-info btn-sm pull-right">Éditer</a>
+                                    <form action="{{ path('task_delete', {'id' : task.id }) }}" style="display:inline;">
+                                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% if pending == 0 %}
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert">Il n'y a pas de tâches à faire.</div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div id="done-list" class="tasks-list" style="display:none">
+            {% set done = 0 %}
+            {% for task in tasks %}
+                {% if task.isDone %}
+                    {% set done = done + 1 %}
+                    <div class="col-sm-4 col-lg-4 col-md-4 task-item">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h4 class="pull-right"><span class="glyphicon glyphicon-ok"></span></h4>
+                                <h4>{{ task.title }}</h4>
+                                <p>{{ task.content }}</p>
+                                <p><small>créateur : {{ task.author ? task.author.username : 'Anonyme' }}</small></p>
+                            </div>
+                            <div>
+                                <form action="{{ path('task_toggle', {'id' : task.id }) }}" style="display:inline;">
+                                    <button class="btn btn-warning btn-sm pull-right">Marquer non terminée</button>
+                                </form>
+                                {% if app.user and (task.author.id == app.user.id or 'ROLE_ADMIN' in app.user.roles) %}
+                                    <a href="{{ path('task_edit', {'id' : task.id }) }}" class="btn btn-info btn-sm pull-right">Éditer</a>
+                                    <form action="{{ path('task_delete', {'id' : task.id }) }}" style="display:inline;">
+                                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% if done == 0 %}
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">Aucune tâche terminée pour le moment.</div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        .task-controls .btn-group .btn.active { background-color: #337ab7; color: white; }
+        .task-item { margin-bottom: 15px; }
+    </style>
+
+    <script>
+        (function(){
+            var btnPending = document.getElementById('show-pending');
+            var btnDone = document.getElementById('show-done');
+            var pendingList = document.getElementById('pending-list');
+            var doneList = document.getElementById('done-list');
+
+            function showPending(){
+                pendingList.style.display = '';
+                doneList.style.display = 'none';
+                btnPending.classList.add('active');
+                btnDone.classList.remove('active');
+            }
+
+            function showDone(){
+                pendingList.style.display = 'none';
+                doneList.style.display = '';
+                btnPending.classList.remove('active');
+                btnDone.classList.add('active');
+            }
+
+            btnPending.addEventListener('click', function(e){ e.preventDefault(); showPending(); });
+            btnDone.addEventListener('click', function(e){ e.preventDefault(); showDone(); });
+        })();
+    </script>
 {% endblock %}

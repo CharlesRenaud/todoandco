@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use Symfony\Component\Form\FormError;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,12 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérification d'unicité du username avant persist
+            $existing = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
+            if ($existing) {
+                $form->get('username')->addError(new FormError("Ce nom est déjà utilisé."));
+                return $this->render('user/create.html.twig', ['form' => $form->createView()]);
+            }
             // Gestion du rôle
             $role = $form->get('roles')->getData();
             $user->setRoles([$role]);
@@ -68,9 +75,10 @@ class UserController extends Controller
             $role = $form->get('roles')->getData();
             $user->setRoles([$role]);
 
-            // Encodage mot de passe uniquement si rempli
-            if (!empty($user->getPassword())) {
-                $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+            // Encodage mot de passe uniquement si le champ n'est pas vide ET différent de l'original
+            $newPassword = $user->getPassword();
+            if (!empty($newPassword) && $newPassword !== $originalPassword) {
+                $password = $this->get('security.password_encoder')->encodePassword($user, $newPassword);
                 $user->setPassword($password);
             } else {
                 $user->setPassword($originalPassword);
