@@ -1,16 +1,21 @@
+# app/config/config_test.yml
 imports:
-    - { resource: config_dev.yml }
+    - { resource: config.yml }
 
 framework:
-    test: ~
+    test: true
     session:
         storage_id: session.storage.mock_file
-    profiler:
-        collect: false
 
-web_profiler:
-    toolbar: false
-    intercept_redirects: false
-
-swiftmailer:
-    disable_delivery: true
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     127.0.0.1
+        dbname:   todo_test
+        user:     todo_test
+        password: todo_test
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
