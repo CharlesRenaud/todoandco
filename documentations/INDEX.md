@@ -87,18 +87,7 @@ Bienvenue dans le dossier de documentation du projet ToDo & Co. Voici tous les d
 
 ---
 
-### 7. [POINTS_1_2_4_COMPLETES.md](POINTS_1_2_4_COMPLETES.md)
-**Récapitulatif des livrables complétés**
-- Point 1 : Documentation d'authentification ✅
-- Point 2 : Guide de contribution ✅
-- Point 4 : Rapports HTML PHPUnit ✅
-- Points restants à faire
-
-👉 **Lisez ceci si vous** : suivez la progression des livrables ou préparez la remise finale
-
----
-
-### 8. [CHANGELOG.md](CHANGELOG.md)
+### 7. [CHANGELOG.md](CHANGELOG.md)
 **Liste détaillée de tous les changements**
 - Fichiers modifiés ligne par ligne
 - Fichiers créés avec explications
@@ -121,7 +110,6 @@ documentations/
 ├── RAPPORT_COUVERTURE_TESTS.md     👈 Statistiques détaillées
 ├── RESUME_IMPLEMENTATION.md        👈 Vue technique globale
 ├── COMPLETION_REPORT.md            👈 Rapport final
-├── POINTS_1_2_4_COMPLETES.md      👈 Suivi des livrables
 └── CHANGELOG.md                    👈 Historique complet
 ```
 

@@ -192,7 +192,7 @@ projet8-TodoList/
 │   ├── RAPPORT_COUVERTURE_TESTS.md # Rapport de couverture
 │   ├── RESUME_IMPLEMENTATION.md # Résumé implémentation
 │   ├── TESTING_GUIDE.md         # Guide des tests
-│   └── POINTS_1_2_4_COMPLETES.md # Récapitulatif livrables
+│   └── CHANGELOG.md             # Liste des changements
 │
 ├── composer.json                # Dépendances
 └── phpunit.xml.dist             # Configuration PHPUnit
