@@ -786,17 +786,4 @@ public function createAction(Request $request, Task $task): Response
 - [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/)
 - [OWASP Security](https://owasp.org/)
 
----
-
-## Support
-
-Des questions ? Besoin d'aide ?
-
-- 📧 Email : [email du menteur]
-- 💬 Slack : [channel du projet]
-- 📚 Wiki : [lien wiki GitHub]
-- 🐛 Issues : [GitHub issues](https://github.com/[username]/projet8-TodoList/issues)
-
----
-
 **Merci de contribuer à ToDo & Co ! 🚀**
