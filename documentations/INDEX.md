@@ -87,18 +87,6 @@ Bienvenue dans le dossier de documentation du projet ToDo & Co. Voici tous les d
 
 ---
 
-### 7. [CHANGELOG.md](CHANGELOG.md)
-**Liste détaillée de tous les changements**
-- Fichiers modifiés ligne par ligne
-- Fichiers créés avec explications
-- Statistiques de changement
-- Anomalies corrigées
-- Nouvelles fonctionnalités ajoutées
-
-👉 **Lisez ceci si vous** : voulez une trace complète des modifications, faites un audit de code, ou comprenez un changement spécifique
-
----
-
 ## 🗂️ Organisation
 
 ```
@@ -109,8 +97,7 @@ documentations/
 ├── TESTING_GUIDE.md               👈 Commencez ici pour les tests
 ├── RAPPORT_COUVERTURE_TESTS.md     👈 Statistiques détaillées
 ├── RESUME_IMPLEMENTATION.md        👈 Vue technique globale
-├── COMPLETION_REPORT.md            👈 Rapport final
-└── CHANGELOG.md                    👈 Historique complet
+└── COMPLETION_REPORT.md            👈 Rapport final
 ```
 
 ---
@@ -148,7 +135,6 @@ documentations/
 | [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) | 8 | 6 min | QA + Lead |
 | [RESUME_IMPLEMENTATION.md](RESUME_IMPLEMENTATION.md) | 7 | 5 min | PM + Lead |
 | [COMPLETION_REPORT.md](COMPLETION_REPORT.md) | 10 | 8 min | Client + Lead |
-| [CHANGELOG.md](CHANGELOG.md) | 12 | 10 min | Code Review |
 
 ---
 

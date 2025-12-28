@@ -185,14 +185,12 @@ projet8-TodoList/
 │   └── tests-details.html       # Détails des tests
 │
 ├── documentations/               # 📚 Documentation
-│   ├── CHANGELOG.md             # Liste des changements
 │   ├── CONTRIBUTION.md          # Guide de contribution
 │   ├── DOCUMENTATION_AUTHENTIFICATION.md  # Guide d'authentification
 │   ├── COMPLETION_REPORT.md     # Rapport final du projet
 │   ├── RAPPORT_COUVERTURE_TESTS.md # Rapport de couverture
 │   ├── RESUME_IMPLEMENTATION.md # Résumé implémentation
-│   ├── TESTING_GUIDE.md         # Guide des tests
-│   └── CHANGELOG.md             # Liste des changements
+│   └── TESTING_GUIDE.md         # Guide des tests
 │
 ├── composer.json                # Dépendances
 └── phpunit.xml.dist             # Configuration PHPUnit
