@@ -174,31 +174,20 @@ php bin/phpunit.phar tests/AppBundle/Controller/ --process-isolation
 
 ## Couverture de Code
 
-### Voir le rapport
-
-```bash
-# Afficher directement
-cat RAPPORT_COUVERTURE_TESTS.md
-```
-
-### Couverture estimée
-
-| Aspect | Couverture |
-|---|---|
-| Contrôleurs | 85% |
-| Cas d'usage | 95% |
-| Autorisations | 100% |
-| **Globale** | **~80-85%** |
-
-✅ **Dépasse l'objectif de 70%**
+Voir [coverage/index.html](../coverage/index.html) pour le rapport complet avec :
+- Statistiques des 13 tests (100% passants)
+- Couverture estimée : ~80-85%
+- Détail de chaque anomalie corrigée
+- Détail de chaque nouvelle fonctionnalité
+- Couverture des contrôleurs, formulaires, entités
 
 ---
 
 ## Fichiers de Documentation
 
 ```
-RAPPORT_COUVERTURE_TESTS.md     👈 Rapport détaillé de couverture
 TESTING_GUIDE.md                 👈 Ce fichier - Guide d'exécution
+../coverage/                     👈 Rapports HTML de couverture
 run_tests.sh                      👈 Script Linux/Mac
 run_tests.bat                     👈 Script Windows
 ```

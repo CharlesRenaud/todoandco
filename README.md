@@ -187,7 +187,6 @@ projet8-TodoList/
 ├── documentations/               # 📚 Documentation
 │   ├── CONTRIBUTION.md          # Guide de contribution
 │   ├── DOCUMENTATION_AUTHENTIFICATION.md  # Guide d'authentification
-│   ├── RAPPORT_COUVERTURE_TESTS.md # Rapport de couverture
 │   └── TESTING_GUIDE.md         # Guide des tests
 │
 ├── composer.json                # Dépendances

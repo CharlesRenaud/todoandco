@@ -48,30 +48,14 @@ Bienvenue dans le dossier de documentation du projet ToDo & Co. Voici tous les d
 
 ---
 
-## 📊 Rapports et Résumés
-
-### 4. [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md)
-**Rapport détaillé de couverture de code**
-- Statistiques des 13 tests (100% passants)
-- Couverture estimée : ~80-85%
-- Détail de chaque anomalie corrigée
-- Détail de chaque nouvelle fonctionnalité
-- Couverture des contrôleurs, formulaires, entités
-
-👉 **Lisez ceci si vous** : avez besoin de statistiques de tests, vérifiez la couverture, ou validez la qualité
-
----
-
-
-## 🗂️ Organisation
+## ️ Organisation
 
 ```
 documentations/
 ├── INDEX.md (ce fichier)
 ├── CONTRIBUTION.md                 👈 Commencez ici pour contribuer
 ├── DOCUMENTATION_AUTHENTIFICATION.md 👈 Commencez ici pour la sécurité
-├── TESTING_GUIDE.md               👈 Commencez ici pour les tests
-└── RAPPORT_COUVERTURE_TESTS.md     👈 Statistiques détaillées
+└── TESTING_GUIDE.md               👈 Commencez ici pour les tests
 ```
 
 ---
@@ -79,9 +63,9 @@ documentations/
 ## 🚀 Où Commencer ?
 
 **Je suis nouveau sur le projet**
-1. Lire [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) pour comprendre ce qui a été fait
+1. Lire [TESTING_GUIDE.md](TESTING_GUIDE.md) pour comprendre ce qui a été fait et lancer les tests
 2. Lire [CONTRIBUTION.md](CONTRIBUTION.md) pour savoir comment contribuer
-3. Lire [TESTING_GUIDE.md](TESTING_GUIDE.md) pour pouvoir lancer les tests
+3. Consulter [coverage/index.html](../coverage/index.html) pour les détails de couverture
 
 **Je dois modifier l'authentification**
 1. Lire [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md) pour l'architecture
@@ -90,10 +74,10 @@ documentations/
 
 **Je dois lancer les tests**
 1. Lire [TESTING_GUIDE.md](TESTING_GUIDE.md) pour les commandes
-2. Consulter [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) pour le détail des tests
+2. Consulter [coverage/index.html](../coverage/index.html) pour les résultats détaillés
 
 **Je dois faire un rapport**
-1. Consulter [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md)
+1. Consulter [coverage/index.html](../coverage/index.html) pour le rapport complet
 
 ---
 
@@ -104,7 +88,6 @@ documentations/
 | [CONTRIBUTION.md](CONTRIBUTION.md) | 20 | 15 min | Développeurs |
 | [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md) | 15 | 12 min | Dev + Lead |
 | [TESTING_GUIDE.md](TESTING_GUIDE.md) | 10 | 8 min | QA + Dev |
-| [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) | 8 | 6 min | QA + Lead |
 
 ---
 
