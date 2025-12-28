@@ -142,7 +142,7 @@ php bin/phpunit.phar --testdox
 - **Formulaires** : 75%
 - **Entités** : 70%
 
-📊 Voir le [Rapport Complet de Couverture](coverage/index.html)
+📊 Voir le [Rapport Complet de Couverture](coverage/index.pdf)
 
 ---
 
