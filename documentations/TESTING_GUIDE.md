@@ -179,10 +179,6 @@ php bin/phpunit.phar tests/AppBundle/Controller/ --process-isolation
 ```bash
 # Afficher directement
 cat RAPPORT_COUVERTURE_TESTS.md
-
-# Ou consulter les fichiers
-cat RESUME_IMPLEMENTATION.md
-cat COMPLETION_REPORT.md
 ```
 
 ### Couverture estimée
@@ -202,8 +198,6 @@ cat COMPLETION_REPORT.md
 
 ```
 RAPPORT_COUVERTURE_TESTS.md     👈 Rapport détaillé de couverture
-RESUME_IMPLEMENTATION.md         👈 Résumé de l'implémentation
-COMPLETION_REPORT.md             👈 Rapport final du projet
 TESTING_GUIDE.md                 👈 Ce fichier - Guide d'exécution
 run_tests.sh                      👈 Script Linux/Mac
 run_tests.bat                     👈 Script Windows

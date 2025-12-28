@@ -62,30 +62,6 @@ Bienvenue dans le dossier de documentation du projet ToDo & Co. Voici tous les d
 
 ---
 
-### 5. [RESUME_IMPLEMENTATION.md](RESUME_IMPLEMENTATION.md)
-**Résumé technique de ce qui a été fait**
-- ✅ 2 anomalies corrigées
-- ✅ 2 nouvelles fonctionnalités implémentées
-- ✅ 13 tests implémentés
-- Fichiers modifiés/créés
-- Détail de chaque implémentation
-
-👉 **Lisez ceci si vous** : découvrez le projet, comprenez ce qui a été fait, ou avez besoin d'un résumé technique
-
----
-
-### 6. [COMPLETION_REPORT.md](COMPLETION_REPORT.md)
-**Rapport final du projet**
-- Tous les objectifs atteints
-- Statistiques complètes
-- Métriques finales
-- Instructions de déploiement
-- Sécurité implémentée
-- Prochaines étapes optionnelles
-
-👉 **Lisez ceci si vous** : validez la complétion du projet, préparez le déploiement, ou présentez le projet
-
----
 
 ## 🗂️ Organisation
 
@@ -95,9 +71,7 @@ documentations/
 ├── CONTRIBUTION.md                 👈 Commencez ici pour contribuer
 ├── DOCUMENTATION_AUTHENTIFICATION.md 👈 Commencez ici pour la sécurité
 ├── TESTING_GUIDE.md               👈 Commencez ici pour les tests
-├── RAPPORT_COUVERTURE_TESTS.md     👈 Statistiques détaillées
-├── RESUME_IMPLEMENTATION.md        👈 Vue technique globale
-└── COMPLETION_REPORT.md            👈 Rapport final
+└── RAPPORT_COUVERTURE_TESTS.md     👈 Statistiques détaillées
 ```
 
 ---
@@ -105,7 +79,7 @@ documentations/
 ## 🚀 Où Commencer ?
 
 **Je suis nouveau sur le projet**
-1. Lire [RESUME_IMPLEMENTATION.md](RESUME_IMPLEMENTATION.md) pour comprendre ce qui a été fait
+1. Lire [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) pour comprendre ce qui a été fait
 2. Lire [CONTRIBUTION.md](CONTRIBUTION.md) pour savoir comment contribuer
 3. Lire [TESTING_GUIDE.md](TESTING_GUIDE.md) pour pouvoir lancer les tests
 
@@ -119,9 +93,7 @@ documentations/
 2. Consulter [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) pour le détail des tests
 
 **Je dois faire un rapport**
-1. Consulter [COMPLETION_REPORT.md](COMPLETION_REPORT.md)
-2. Consulter [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md)
-3. Consulter [RESUME_IMPLEMENTATION.md](RESUME_IMPLEMENTATION.md)
+1. Consulter [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md)
 
 ---
 
@@ -133,8 +105,6 @@ documentations/
 | [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md) | 15 | 12 min | Dev + Lead |
 | [TESTING_GUIDE.md](TESTING_GUIDE.md) | 10 | 8 min | QA + Dev |
 | [RAPPORT_COUVERTURE_TESTS.md](RAPPORT_COUVERTURE_TESTS.md) | 8 | 6 min | QA + Lead |
-| [RESUME_IMPLEMENTATION.md](RESUME_IMPLEMENTATION.md) | 7 | 5 min | PM + Lead |
-| [COMPLETION_REPORT.md](COMPLETION_REPORT.md) | 10 | 8 min | Client + Lead |
 
 ---
 
