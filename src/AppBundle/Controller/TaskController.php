@@ -127,6 +127,25 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task)
     {
+        $currentUser = $this->getUser();
+        
+        // Vérifier si l'utilisateur peut supprimer la tâche
+        $isAuthor = $task->getAuthor()->getId() === $currentUser->getId();
+        $isAdmin = in_array('ROLE_ADMIN', $currentUser->getRoles());
+        $isAnonymousTask = $task->getAuthor()->getUsername() === 'anonyme';
+        
+        // Un utilisateur peut supprimer sa tâche, ou un admin peut supprimer n'importe quelle tâche
+        // Les tâches anonymes peuvent seulement être supprimées par un admin
+        if ($isAnonymousTask) {
+            if (!$isAdmin) {
+                throw $this->createAccessDeniedException('Vous ne pouvez pas supprimer une tâche anonyme.');
+            }
+        } else {
+            if (!$isAuthor && !$isAdmin) {
+                throw $this->createAccessDeniedException('Vous ne pouvez supprimer que vos propres tâches.');
+            }
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
