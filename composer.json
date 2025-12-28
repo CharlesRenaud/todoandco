@@ -36,7 +36,7 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "*@dev"
     },
     "scripts": {
         "post-install-cmd": [],
@@ -51,6 +51,12 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
+        }
+    },
+    "repositories": {
+        "phpunit-bridge": {
+            "type": "path",
+            "url": "C:\\Users\\Renaud\\Desktop\\open 2025\\projet8-TodoList\\vendor\\symfony\\phpunit-bridge"
         }
     }
 }
