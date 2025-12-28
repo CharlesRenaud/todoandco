@@ -14,3 +14,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+
+# Coverage reports (keep manually created HTML files)
+# Ignore generated clover/coverage data, but keep HTML reports
+/coverage/clover.xml
+/coverage/coverage-report.xml
+# HTML reports are kept for documentation
