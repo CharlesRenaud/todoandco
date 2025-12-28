@@ -15,7 +15,8 @@
 /vendor/
 /web/bundles/
 /documentations/POINTS_1_2_4_COMPLETES.md
-
+/documentations/COMPLETION_REPORT.md
+/documentations/RESUME_IMPLEMENTATION.md
 # Coverage reports (keep manually created HTML files)
 # Ignore generated clover/coverage data, but keep HTML reports
 /coverage/clover.xml
