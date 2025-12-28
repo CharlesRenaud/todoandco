@@ -1,5 +1,7 @@
 # 📋 ToDo & Co - Application de Gestion de Tâches
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/da401629bfcc44ecaaeff51cd93a759a)](https://app.codacy.com/gh/CharlesRenaud/todoandco?utm_source=github.com&utm_medium=referral&utm_content=CharlesRenaud/todoandco&utm_campaign=Badge_Grade)
+
 ![Symfony](https://img.shields.io/badge/Symfony-3.1-black?style=flat-square)
 ![PHP](https://img.shields.io/badge/PHP-7.2+-777BB4?style=flat-square)
 ![MySQL](https://img.shields.io/badge/MySQL-5.7+-00758F?style=flat-square)
