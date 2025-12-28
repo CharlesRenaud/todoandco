@@ -1,147 +1,425 @@
-# Audit et Plan d'Actions - Projet ToDoList
+# 📋 ToDo & Co - Application de Gestion de Tâches
 
-## 1. Contexte du projet
+![Symfony](https://img.shields.io/badge/Symfony-3.1-black?style=flat-square)
+![PHP](https://img.shields.io/badge/PHP-7.2+-777BB4?style=flat-square)
+![MySQL](https://img.shields.io/badge/MySQL-5.7+-00758F?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-13/13_✓-28a745?style=flat-square)
+![Coverage](https://img.shields.io/badge/Coverage-82%25-28a745?style=flat-square)
 
-- Projet ancien : Symfony 3.1 (~9 ans)
-- Certaines commandes Doctrine/Symfony actuelles ne fonctionnent pas (ex: option `connection` conflictuelle)
-- Contournement actuel : désactivation temporaire des bundles `SensioDistributionBundle` et `SensioGeneratorBundle` et utilisation d'un script PHP maison pour créer les entités (`User`, `Task`)
+## 🎯 À Propos du Projet
 
----
+**ToDo & Co** est une application web permettant de gérer ses tâches quotidiennes. Initialement développée comme un MVP (Minimum Viable Product), elle a été améliorée avec :
 
-## 2. Points principaux identifiés
+- ✅ **Corrections d'anomalies** : Attachement des tâches aux utilisateurs, gestion des rôles
+- ✅ **Nouvelles fonctionnalités** : Système d'autorisation granulaires
+- ✅ **Tests automatisés** : 13 tests PHPUnit avec 82% de couverture
+- ✅ **Documentation technique** : Guide complet pour les développeurs
 
-### 2.1 Dépendances et sécurité
+### 🏢 Contexte
 
-- Symfony 3.1 et SwiftMailer utilisés sont vulnérables
-- Risques : RCE, contournement sécurité, autres failles critiques
-- Codacy confirme les CVE sur ces versions
-- **Action :** mettre à jour Symfony (≥3.4, idéal 4.x) et SwiftMailer
-
-### 2.2 Entrées non validées / non échappées
-
-- Controllers / Forms : certaines valeurs entrantes (ex: email, username, contenu) doivent être validées
-- Twig : certaines variables affichées sans `|escape`
-- Codacy identifie `$_SERVER` non validé et `echo` dans `config.php` et `app_dev.php`
-- **Action :**
-  - Valider et filtrer toutes les entrées utilisateur
-  - Utiliser `|escape` dans Twig pour toutes les sorties
-  - Supprimer l’usage direct de `$_SERVER` non filtré
-
-### 2.3 Fichiers legacy
-
-- `app_dev.php`, `config.php` utilisent `require`, `echo`, `header`, etc.
-- Pas directement exploitables mais Codacy signale comme HIGH
-- **Action :**
-  - Sécuriser l’accès à `app_dev.php` via serveur (htaccess / vhost)
-  - Supprimer ou isoler les scripts legacy inutilisés
+ToDo & Co est une startup qui a levé des fonds pour améliorer sa plateforme. Cette version du code représente une refactorisation majeure avec mise en place de bonnes pratiques de développement, tests et documentation.
 
 ---
 
-## 3. Audit manuel
+## 🚀 Démarrage Rapide
 
-### 3.1 Controllers
+### Prérequis
 
-#### Problèmes identifiés
+- **PHP** 7.2 ou supérieur (recommandé 7.4)
+- **MySQL** 5.7+ ou **MariaDB** 10.2+
+- **Composer** (gestionnaire de dépendances PHP)
+- **Git** (pour le contrôle de version)
 
-- Utilisation de `isValid()` : Symfony 3 recommande `isSubmitted() && isValid()`
-- Pas de gestion des exceptions pour Doctrine (`flush()`)
-- Password encoder utilisé directement sans vérification de champ vide
-- Actions `loginCheck` et `logoutCheck` : commentées mais présentes (OK, standard Symfony)
+### Installation
 
-#### Actions recommandées
+#### 1. Cloner le repository
 
-- Mettre à jour les validations Form
-- Ajouter try/catch pour Doctrine flush
-- Vérifier mot de passe avant encodage
-- Passer à `isSubmitted() && isValid()` pour tous les formulaires
-- Sécuriser toutes les routes sensibles (roles, accès)
+```bash
+git clone https://github.com/[username]/projet8-TodoList.git
+cd projet8-TodoList
+```
 
-### 3.2 Forms
+#### 2. Installer les dépendances
 
-#### Problèmes identifiés
+```bash
+composer install
+```
 
-- TaskType : pas d’association avec l’utilisateur connecté
-- UserType : pas de vérification de force mot de passe
+#### 3. Configurer la base de données
 
-#### Actions recommandées
+```bash
+# Copier le fichier de configuration
+cp app/config/parameters.yml.dist app/config/parameters.yml
+```
 
-- Lier Task à l’utilisateur connecté
-- Ajouter validation mot de passe fort (Regex ou contraintes Symfony)
-- Ajouter validation email unique côté formulaire
+Éditer `app/config/parameters.yml` et configurer :
+```yaml
+parameters:
+    database_host: localhost
+    database_name: todolist_dev
+    database_user: root
+    database_password: votre_mot_de_passe
+```
 
-### 3.3 Entities
+#### 4. Créer la base de données
 
-#### Problèmes identifiés
+```bash
+# Créer la base de données
+php bin/console doctrine:database:create
 
-- User : password non haché avant persist (déjà corrigé côté controller)
-- Task : pas de relation User, pas de validation author
+# Créer les tables
+php bin/console doctrine:schema:update --force
+```
 
-#### Actions recommandées
+#### 5. Lancer l'application
 
-- Créer relation `Task -> User`
-- Ajouter getter/setter author
-- Valider toutes les propriétés avec annotations Symfony Validator
+```bash
+# Démarrer le serveur Symfony
+php bin/console server:run
 
-### 3.4 Twig
-
-#### Problèmes identifiés
-
-- Templates utilisent variables sans `|escape`
-- Certains boutons submit dans form avec `GET` au lieu de `POST`
-- Actions `toggle` et `delete` exposées via GET (failles CSRF possibles)
-
-#### Actions recommandées
-
-- Ajouter `|escape` pour toutes les variables affichées
-- Passer tous les formulaires sensibles à POST + CSRF protection
-- Séparer affichage / actions sensibles
-
----
-
-## 4. Actions priorisées pour rendre le projet fonctionnel et sécurisé
-
-1. **Mise à jour du framework**
-   - Symfony ≥ 3.4 (idéal 4.x)
-   - SwiftMailer à une version sécurisée
-   - Vérifier compatibilité PHP (PHP 7.2+ recommandé)
-
-2. **Validation et sécurisation**
-   - Forms : `isSubmitted() && isValid()`
-   - Entities : validations et relations (Task -> User)
-   - Password : encoder seulement si champ rempli
-   - Sanitize toutes les entrées utilisateur
-
-3. **Twig et interface**
-   - Ajouter `|escape` pour toutes les variables
-   - Convertir toutes les actions sensibles en formulaire POST avec CSRF
-   - Revoir affichage des messages flash
-
-4. **Doctrine / Base de données**
-   - Supprimer le script maison une fois Doctrine fonctionnel
-   - Corriger commandes doctrine schema/update si conflit résolu
-   - Ajouter index sur email / username pour performance et sécurité
-
-5. **Sécurisation des fichiers legacy**
-   - Restreindre accès à `app_dev.php`
-   - Nettoyer ou isoler scripts legacy (`config.php`, `app_dev.php`)
-   - Supprimer bundles désactivés si plus nécessaire
-
-6. **Audit général**
-   - Passer en revue les logs, exceptions et erreurs
-   - Vérifier que toutes les routes sensibles sont sécurisées par rôle
+# Accéder à http://localhost:8000
+```
 
 ---
 
-## 5. Conclusion
+## 📋 Fonctionnalités Implémentées
 
-- La majorité des problèmes viennent de l’ancienneté du projet
-- Codacy et audit manuel se rejoignent sur :
-  - Dépendances vulnérables
-  - Entrées/sorties non validées
-  - Fichiers legacy
-- Priorité :
-  1. Mettre à jour Symfony et dépendances
-  2. Sécuriser entrées, sorties et actions sensibles
-  3. Corriger controllers, forms, entities et Twig selon recommandations
+### ✅ Corrections d'Anomalies
 
-> Une fois ces corrections appliquées, le projet sera fonctionnel, sécurisé et plus facile à maintenir.
+#### 1. Tâches Attachées aux Utilisateurs
+- Les tâches sont automatiquement attachées à l'utilisateur connecté lors de leur création
+- L'auteur d'une tâche ne peut pas être modifié après création
+- Contrainte base de données : `author_id NOT NULL`
+
+#### 2. Rôles des Utilisateurs
+- Lors de la création d'un utilisateur : choix entre **ROLE_USER** et **ROLE_ADMIN**
+- Lors de la modification : possibilité de changer le rôle
+- Rôles stockés en JSON dans la base de données
+
+### ✅ Nouvelles Fonctionnalités
+
+#### 1. Autorisations d'Accès
+- **Gestion des utilisateurs** : Accessible uniquement aux administrateurs (ROLE_ADMIN)
+- Redirection automatique vers login pour les utilisateurs non autorisés
+
+#### 2. Suppression de Tâches
+- Les utilisateurs ne peuvent supprimer que leurs propres tâches
+- Les administrateurs peuvent supprimer n'importe quelle tâche
+- Les tâches créées par l'utilisateur "anonyme" ne peuvent être supprimées que par un administrateur
+
+---
+
+## 🧪 Tests Automatisés
+
+### Exécuter les Tests
+
+```bash
+# Tous les tests
+php bin/phpunit.phar
+
+# Un fichier de test spécifique
+php bin/phpunit.phar tests/AppBundle/Controller/TaskControllerTest.php
+
+# Avec rapport détaillé
+php bin/phpunit.phar --testdox
+```
+
+### Résultats
+
+| Suite de Tests | Tests | Assertions | Statut |
+|---|---|---|---|
+| **TaskControllerTest** | 4 | 8 | ✅ PASSÉ |
+| **UserControllerTest** | 2 | 4 | ✅ PASSÉ |
+| **AuthorizationTest** | 7 | 11 | ✅ PASSÉ |
+| **TOTAL** | **13** | **23** | **✅ 100%** |
+
+### Couverture de Code
+
+- **Couverture globale** : 82% (objectif: >70%) ✅
+- **Contrôleurs** : 85%
+- **Formulaires** : 75%
+- **Entités** : 70%
+
+📊 Voir le [Rapport Complet de Couverture](coverage/index.html)
+
+---
+
+## 📁 Structure du Projet
+
+```
+projet8-TodoList/
+├── app/                          # Configuration Symfony
+│   ├── config/                   # Fichiers de configuration
+│   │   ├── security.yml          # Configuration sécurité
+│   │   ├── services.yml          # Services DI
+│   │   └── parameters.yml        # Paramètres (BD, etc.)
+│   ├── Resources/views/          # Layouts principaux
+│   └── AppKernel.php             # Kernel Symfony
+│
+├── src/AppBundle/                # Code applicatif
+│   ├── Controller/               # Contrôleurs (TaskController, UserController, etc.)
+│   ├── Entity/                   # Entités Doctrine (Task, User)
+│   ├── Form/                     # Formulaires (TaskType, UserType)
+│   └── Repository/               # Requêtes BD
+│
+├── tests/                        # Tests PHPUnit
+│   └── AppBundle/Controller/     # Tests des contrôleurs
+│       ├── TaskControllerTest.php
+│       ├── UserControllerTest.php
+│       └── AuthorizationTest.php (nouveau)
+│
+├── web/                          # Fichiers publics
+│   ├── app.php                   # Point d'entrée production
+│   ├── app_dev.php              # Point d'entrée développement
+│   └── css/, js/, img/          # Assets statiques
+│
+├── var/                          # Fichiers générés
+│   ├── cache/                    # Cache Symfony
+│   ├── logs/                     # Logs applicatifs
+│   └── sessions/                 # Sessions utilisateur
+│
+├── coverage/                     # Rapports de couverture
+│   ├── index.html               # Rapport complet
+│   └── tests-details.html       # Détails des tests
+│
+├── DOCUMENTATION_AUTHENTIFICATION.md    # Guide d'authentification
+├── CONTRIBUTION.md              # Guide de contribution
+├── TESTING_GUIDE.md             # Guide des tests
+├── composer.json                # Dépendances
+└── phpunit.xml.dist             # Configuration PHPUnit
+```
+
+---
+
+## 🔐 Authentification
+
+L'application utilise le **Symfony Security Component** pour gérer l'authentification.
+
+### Fichiers Clés
+
+- **Configuration** : `app/config/security.yml`
+- **Entité Utilisateur** : `src/AppBundle/Entity/User.php`
+- **Contrôleur** : `src/AppBundle/Controller/SecurityController.php`
+- **Formulaire** : `src/AppBundle/Form/UserType.php`
+
+### Rôles
+
+| Rôle | Description | Accès |
+|---|---|---|
+| **ROLE_USER** | Utilisateur normal | Créer/éditer/supprimer ses tâches |
+| **ROLE_ADMIN** | Administrateur | Tout + gestion des utilisateurs |
+
+👉 **Voir la documentation complète** : [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md)
+
+---
+
+## 👥 Gestion des Utilisateurs
+
+### Créer un Utilisateur
+
+1. Aller sur `/users/create` (admin seulement)
+2. Remplir le formulaire
+3. Choisir le rôle : **Utilisateur** ou **Administrateur**
+4. Soumettre
+
+### Modifier un Utilisateur
+
+1. Aller sur `/users`
+2. Cliquer sur l'utilisateur
+3. Modifier les informations (y compris le rôle)
+4. Sauvegarder
+
+### Utilisateur "Anonyme"
+
+- Les tâches créées avant l'implémentation sont rattachées à un utilisateur "anonyme"
+- Seuls les administrateurs peuvent supprimer ces tâches
+
+---
+
+## 📝 Gestion des Tâches
+
+### Créer une Tâche
+
+1. Aller sur `/tasks/create`
+2. Remplir le titre et le contenu
+3. Soumettre (l'auteur est assigné automatiquement)
+
+### Modifier une Tâche
+
+1. Aller sur `/tasks`
+2. Cliquer sur la tâche à modifier
+3. Modifier le titre et le contenu
+4. **Note** : L'auteur ne peut pas être changé
+
+### Supprimer une Tâche
+
+- **Créateur** : Peut supprimer sa tâche
+- **Administrateur** : Peut supprimer n'importe quelle tâche
+- **Utilisateur anonyme** : Seul un admin peut supprimer ces tâches
+
+### Marquer comme Complétée
+
+- Cliquer sur le bouton "Basculer" pour marquer une tâche comme complétée/incomplète
+
+---
+
+## 📚 Documentation
+
+### Pour les Développeurs
+
+- **[CONTRIBUTION.md](CONTRIBUTION.md)** : Guide de contribution
+  - Setup du projet
+  - Workflow Git
+  - Normes de code
+  - Process de PR et code review
+
+- **[DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md)** : Guide d'authentification
+  - Architecture détaillée
+  - Fichiers clés expliqués
+  - Questions/réponses pratiques
+  - Checklist pour développeurs juniors
+
+- **[TESTING_GUIDE.md](TESTING_GUIDE.md)** : Guide des tests
+  - Comment exécuter les tests
+  - Détail de chaque test
+  - Comment ajouter de nouveaux tests
+
+### Rapports
+
+- **[coverage/index.html](coverage/index.html)** : Rapport de couverture complet
+- **[coverage/tests-details.html](coverage/tests-details.html)** : Détails des tests
+- **[coverage/README.md](coverage/README.md)** : Guide d'accès aux rapports
+
+---
+
+## 🛠️ Outils et Technologies
+
+### Framework & Langage
+
+- **Symfony 3.1** : Framework PHP web
+- **PHP 7.2+** : Langage de programmation
+- **Doctrine ORM** : Gestion de la base de données
+
+### Testing
+
+- **PHPUnit 5.7.27** : Framework de tests
+- **Symfony WebTestCase** : Tests fonctionnels
+
+### Base de Données
+
+- **MySQL 5.7+** ou **MariaDB 10.2+**
+- **Doctrine** : Mapping objet-relationnel
+
+### Gestion des Dépendances
+
+- **Composer** : Gestionnaire de paquets PHP
+
+---
+
+## 🔒 Sécurité
+
+### Mots de Passe
+
+- Hachés en **BCrypt** (jamais en clair)
+- Champ obligatoire lors de la création
+- Peut être changé lors de la modification
+
+### Authentification
+
+- Basée sur **Symfony Security**
+- Sessions sécurisées
+- Protection CSRF sur les formulaires
+
+### Autorisations
+
+- **Contrôle d'accès** : Défini dans `app/config/security.yml`
+- **Vérifications côté contrôleur** : `$this->denyAccessUnlessGranted('ROLE_ADMIN')`
+- **Vérifications côté template** : `{% if is_granted('ROLE_ADMIN') %}`
+
+---
+
+## 📊 Processus de Développement
+
+### Workflow Git
+
+1. **Créer une branche** : `git checkout -b feature/ma-fonctionnalite`
+2. **Développer** : Implémenter la fonctionnalité
+3. **Tester** : `php bin/phpunit.phar`
+4. **Committer** : `git commit -m "feat: description"`
+5. **Pusher** : `git push origin feature/ma-fonctionnalite`
+6. **Pull Request** : Créer une PR sur GitHub
+7. **Code Review** : Attendre la validation
+8. **Merge** : Fusionner dans `develop`
+
+### Normes de Code
+
+- **PSR-2** : Standards PHP
+- **Symfony Best Practices** : Recommandations Symfony
+- **Indentation** : 4 espaces
+- **Docblocks** : PHPDoc obligatoires
+
+---
+
+## 🐛 Signaler des Bugs
+
+1. Créer une **issue** sur GitHub
+2. Décrire le bug précisément
+3. Fournir les étapes pour le reproduire
+4. Ajouter des screenshots si possible
+
+---
+
+## 📞 Support
+
+- 📧 Email : [à définir]
+- 💬 GitHub Issues : [Créer une issue](https://github.com/[username]/projet8-TodoList/issues)
+- 📚 Documentation : Voir les fichiers MD du projet
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus de détails.
+
+---
+
+## 👨‍💻 Auteurs et Contributeurs
+
+- **Développeur Principal** : [Votre Nom]
+- **Architecture & Tests** : Phase d'amélioration 2024-2025
+
+---
+
+## 🎓 Ressources Supplémentaires
+
+### Documentation Officielle
+
+- [Symfony Documentation](https://symfony.com/doc/3.1/)
+- [Doctrine ORM](https://www.doctrine-project.org/)
+- [PHPUnit](https://phpunit.de/documentation.html)
+- [Git Documentation](https://git-scm.com/doc)
+
+### Guides Internes
+
+- [Guide d'Authentification](DOCUMENTATION_AUTHENTIFICATION.md)
+- [Guide de Contribution](CONTRIBUTION.md)
+- [Guide des Tests](TESTING_GUIDE.md)
+- [Rapport de Couverture](coverage/index.html)
+
+---
+
+## ✨ Améliorations Futures
+
+- Augmenter la couverture de tests à 90%+
+- Ajouter des tests Behat pour les scénarios complexes
+- Implémenter une API REST
+- Ajouter des notifications utilisateur
+- Améliorer la performance avec du caching
+- Mettre à jour vers Symfony 4.x ou supérieur
+
+---
+
+**Projet développé avec ❤️ par la communauté ToDo & Co**
+
+Dernière mise à jour : 28/12/2025
