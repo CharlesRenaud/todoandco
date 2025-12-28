@@ -288,8 +288,8 @@ L'application utilise le **Symfony Security Component** pour gérer l'authentifi
 
 ### Rapports
 
-- **[coverage/index.html](coverage/index.html)** : Rapport de couverture complet
-- **[coverage/tests-details.html](coverage/tests-details.html)** : Détails des tests
+- **[coverage/index.html](coverage/index.pdf)** : Rapport de couverture complet
+- **[coverage/tests-details.html](coverage/tests-details.pdf)** : Détails des tests
 - **[coverage/README.md](coverage/README.md)** : Guide d'accès aux rapports
 
 ---
@@ -385,4 +385,4 @@ L'application utilise le **Symfony Security Component** pour gérer l'authentifi
 - [Guide d'Authentification](DOCUMENTATION_AUTHENTIFICATION.md)
 - [Guide de Contribution](CONTRIBUTION.md)
 - [Guide des Tests](TESTING_GUIDE.md)
-- [Rapport de Couverture](coverage/index.html)
+- [Rapport de Couverture](coverage/index.pdf)
