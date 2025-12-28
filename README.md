@@ -370,27 +370,6 @@ L'application utilise le **Symfony Security Component** pour gérer l'authentifi
 
 ---
 
-## 📞 Support
-
-- 📧 Email : [à définir]
-- 💬 GitHub Issues : [Créer une issue](https://github.com/[username]/projet8-TodoList/issues)
-- 📚 Documentation : Voir les fichiers MD du projet
-
----
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus de détails.
-
----
-
-## 👨‍💻 Auteurs et Contributeurs
-
-- **Développeur Principal** : [Votre Nom]
-- **Architecture & Tests** : Phase d'amélioration 2024-2025
-
----
-
 ## 🎓 Ressources Supplémentaires
 
 ### Documentation Officielle
@@ -406,20 +385,3 @@ Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus de détails.
 - [Guide de Contribution](CONTRIBUTION.md)
 - [Guide des Tests](TESTING_GUIDE.md)
 - [Rapport de Couverture](coverage/index.html)
-
----
-
-## ✨ Améliorations Futures
-
-- Augmenter la couverture de tests à 90%+
-- Ajouter des tests Behat pour les scénarios complexes
-- Implémenter une API REST
-- Ajouter des notifications utilisateur
-- Améliorer la performance avec du caching
-- Mettre à jour vers Symfony 4.x ou supérieur
-
----
-
-**Projet développé avec ❤️ par la communauté ToDo & Co**
-
-Dernière mise à jour : 28/12/2025
