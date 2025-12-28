@@ -6,6 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Tests](https://img.shields.io/badge/Tests-13/13_✓-28a745?style=flat-square)
 ![Coverage](https://img.shields.io/badge/Coverage-82%25-28a745?style=flat-square)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d031eafded0d4529a88bc1013189f259)](https://app.codacy.com/gh/CharlesRenaud/todoandco/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## 🎯 À Propos du Projet
 
