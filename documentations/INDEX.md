@@ -107,8 +107,6 @@ documentations/
 
 1. Vérifiez d'abord la FAQ dans [CONTRIBUTION.md](CONTRIBUTION.md)
 2. Consultez la section "Questions/Réponses" dans [DOCUMENTATION_AUTHENTIFICATION.md](DOCUMENTATION_AUTHENTIFICATION.md)
-3. Lisez le "Dépannage" dans [TESTING_GUIDE.md](TESTING_GUIDE.md)
-
 ---
 
 **Dernière mise à jour** : 28 décembre 2025  
