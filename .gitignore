@@ -15,6 +15,9 @@
 /vendor/
 /web/bundles/
 /documentations/POINTS_1_2_4_COMPLETES.md
+/documentations/AUDIT_QUALITE_CODE_PERFORMANCE.md
+/audits
+
 # Coverage reports (keep manually created HTML files)
 # Ignore generated clover/coverage data, but keep HTML reports
 /coverage/clover.xml
